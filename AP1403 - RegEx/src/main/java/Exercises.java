@@ -5,21 +5,31 @@ public class Exercises {
 
     // Validates an email address
     public boolean validateEmail(String email) {
-        String regex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$";
+
+        String regex = "^[a-zA-Z0-9][a-zA-Z0-9._%+-]*[a-zA-Z0-9]@[a-zA-Z0-9]+[a-zA-Z0-9.-]*[a-zA-Z0-9]\\.[a-zA-Z]{2,}$";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(email);
+
         return matcher.matches();
     }
-
     // Finds a date in a string (British or American format)
     public String findDate(String string) {
-        String regex = "\\b(\\d{4}-[01]\\d-[0-3]\\d|(?:0[1-9]|[12]\\d|3[01])/(?:0[1-9]|1[0-2])/(?:19|20)\\d{2})\\b";
-        Pattern pattern = Pattern.compile(regex);
-        Matcher matcher = pattern.matcher(string);
-
-        return matcher.find() ? matcher.group() : null;
+        // todo
+        String regex1 = "\\b(0?[1-9]|[12][0-9]|3[01])[-/](0?[1-9]|1[012])[-/](\\d{4})\\b";
+        String regex2 = "\\b(\\d{4})[-/](0?[1-9]|1[012])[-/](0?[1-9]|[12][0-9]|3[01])\\b";
+        Pattern pattern1 = Pattern.compile(regex1);
+        Matcher matcher1 = pattern1.matcher(string);
+        Pattern pattern2 = Pattern.compile(regex2);
+        Matcher matcher2 = pattern2.matcher(string);
+        if (matcher1.find()) {
+            return matcher1.group();
+        }
+        else if (matcher2.find()) {
+            return matcher2.group();
+        }
+        else
+            return null;
     }
-
 
     // Detects and counts valid passwords
     public int findValidPasswords(String string) {
